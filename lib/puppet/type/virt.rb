@@ -401,6 +401,9 @@ Image files must end with `*.img`, `*.qcow` or `*.qcow2`"
     newparam(:qcow2_preallocation) do
       desc "Define preallocation type for qcow2 disks"
     end
+    newparam(:allocate_disks) do
+      desc "Allocate full space of disks"
+    end
     newparam(:virtio_for_disks) do
       desc "Using virtio for block devices"
     end
