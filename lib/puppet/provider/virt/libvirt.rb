@@ -9,6 +9,7 @@ Puppet::Type.type(:virt).provide(:libvirt) do
   commands :grep => "/bin/grep"
   commands :ip => "/sbin/ip"
   commands :qemu_img => "/usr/bin/qemu-img"
+  commands :fallocate => "/usr/bin/fallocate"
 
   # The provider is chosen by virt_type
   confine :feature => :libvirt
@@ -146,6 +147,10 @@ Puppet::Type.type(:virt).provide(:libvirt) do
       args << ["-opreallocation="+resource[:qcow2_preallocation]] if resource[:qcow2_preallocation]
       args << path << "#{size}G"
       qemu_img args unless File.exists?(path)
+      length = Integer(size) << 30
+      args = ["-l"+length.to_s]
+      args << path
+      fallocate args if resource[:allocate_disks]
     end
     
     # Additional disks
