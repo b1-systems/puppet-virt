@@ -1,7 +1,7 @@
 class virt {
 
   include virt::params
-  package { $virt::params::packages: ensure => latest }
+  package { $virt::params::packages: ensure => installed }
 
   File {
     owner => 'root',
